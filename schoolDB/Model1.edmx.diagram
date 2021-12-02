@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a5218127e0764d28a216303e1122c7eb" Name="Diagram1">
+        <EntityTypeShape EntityType="schoolDBModel.sysdiagram" Width="1.5" PointX="8.75" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="schoolDBModel.Table_Attendnce" Width="1.5" PointX="5.25" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="schoolDBModel.Table_class" Width="1.5" PointX="8.25" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="schoolDBModel.Table_days" Width="1.5" PointX="3.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="schoolDBModel.Table_Modules" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="schoolDBModel.Table_parents" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="schoolDBModel.Table_paymentsDetails" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="schoolDBModel.Table_programme" Width="1.5" PointX="3.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="schoolDBModel.Table_students" Width="1.5" PointX="3" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="schoolDBModel.Table_Teacher" Width="1.5" PointX="6" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="schoolDBModel.Table_times" Width="1.5" PointX="6" PointY="11.625" IsExpanded="true" />
+        <AssociationConnector Association="schoolDBModel.FK_Table_Attendnce_Table_students" ManuallyRouted="false" />
+        <AssociationConnector Association="schoolDBModel.FK_Table_class_Table_Modules" ManuallyRouted="false" />
+        <AssociationConnector Association="schoolDBModel.FK_Table_class_Table_students" ManuallyRouted="false" />
+        <AssociationConnector Association="schoolDBModel.FK_Table_class_Table_Teacher" ManuallyRouted="false" />
+        <AssociationConnector Association="schoolDBModel.FK_Table_class_Table_times" ManuallyRouted="false" />
+        <AssociationConnector Association="schoolDBModel.FK_Table_times_Table_days" ManuallyRouted="false" />
+        <AssociationConnector Association="schoolDBModel.FK_Table_Modules_Table_programme" ManuallyRouted="false" />
+        <AssociationConnector Association="schoolDBModel.FK_Table_paymentsDetails_Table_parents" ManuallyRouted="false" />
+        <AssociationConnector Association="schoolDBModel.FK_Table_students_Table_parents" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="schoolDBModel.Table_admin" Width="1.5" PointX="1.5" PointY="0.875" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

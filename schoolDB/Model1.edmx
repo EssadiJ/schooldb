@@ -1,0 +1,765 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="schoolDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Table_admin">
+          <Key>
+            <PropertyRef Name="admin id" />
+          </Key>
+          <Property Name="admin id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="admin_name" Type="varchar" MaxLength="50" />
+          <Property Name="password" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Table_Attendnce">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id students" Type="int" />
+          <Property Name="remark" Type="varchar" MaxLength="150" />
+          <Property Name="date" Type="date" />
+        </EntityType>
+        <EntityType Name="Table_class">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id student" Type="int" />
+          <Property Name="id teacher" Type="int" />
+          <Property Name="id modules" Type="int" />
+          <Property Name="id times" Type="int" />
+        </EntityType>
+        <EntityType Name="Table_days">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="day" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Table_Modules">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="programme id" Type="int" />
+          <Property Name="modules name" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Table_parents">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="full name" Type="varchar" MaxLength="50" />
+          <Property Name="phone" Type="varchar" MaxLength="13" />
+          <Property Name="email" Type="varchar" MaxLength="30" />
+          <Property Name="address" Type="varchar" MaxLength="100" />
+          <Property Name="job" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Table_paymentsDetails">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="type" Type="varchar" MaxLength="50" />
+          <Property Name="amount" Type="decimal" Precision="18" Scale="3" />
+          <Property Name="blance" Type="decimal" Precision="18" Scale="3" />
+          <Property Name="recette" Type="decimal" Precision="18" Scale="3" />
+          <Property Name="sumistre" Type="varchar" MaxLength="50" />
+          <Property Name="date" Type="date" />
+          <Property Name="id parents" Type="int" />
+        </EntityType>
+        <EntityType Name="Table_programme">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="programme name" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Table_students">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="full name" Type="varchar" MaxLength="50" />
+          <Property Name="age" Type="date" />
+          <Property Name="gender" Type="varchar" MaxLength="10" />
+          <Property Name="date in" Type="date" />
+          <Property Name="date out" Type="date" />
+          <Property Name="id parent" Type="int" />
+        </EntityType>
+        <EntityType Name="Table_Teacher">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="full name" Type="varchar" MaxLength="50" />
+          <Property Name="cin" Type="varchar" MaxLength="10" />
+          <Property Name="phone" Type="varchar" MaxLength="13" />
+          <Property Name="email" Type="varchar" MaxLength="40" />
+          <Property Name="address" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Table_times">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="day id" Type="int" />
+          <Property Name="time" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_Table_Attendnce_Table_students">
+          <End Role="Table_students" Type="Self.Table_students" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Table_Attendnce" Type="Self.Table_Attendnce" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Table_students">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Table_Attendnce">
+              <PropertyRef Name="id students" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_class_Table_Modules">
+          <End Role="Table_Modules" Type="Self.Table_Modules" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Table_class" Type="Self.Table_class" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Table_Modules">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Table_class">
+              <PropertyRef Name="id modules" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_class_Table_students">
+          <End Role="Table_students" Type="Self.Table_students" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Table_class" Type="Self.Table_class" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Table_students">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Table_class">
+              <PropertyRef Name="id student" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_class_Table_Teacher">
+          <End Role="Table_Teacher" Type="Self.Table_Teacher" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Table_class" Type="Self.Table_class" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Table_Teacher">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Table_class">
+              <PropertyRef Name="id teacher" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_class_Table_times">
+          <End Role="Table_times" Type="Self.Table_times" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Table_class" Type="Self.Table_class" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Table_times">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Table_class">
+              <PropertyRef Name="id times" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_Modules_Table_programme">
+          <End Role="Table_programme" Type="Self.Table_programme" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Table_Modules" Type="Self.Table_Modules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Table_programme">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Table_Modules">
+              <PropertyRef Name="programme id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_paymentsDetails_Table_parents">
+          <End Role="Table_parents" Type="Self.Table_parents" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Table_paymentsDetails" Type="Self.Table_paymentsDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Table_parents">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Table_paymentsDetails">
+              <PropertyRef Name="id parents" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_students_Table_parents">
+          <End Role="Table_parents" Type="Self.Table_parents" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Table_students" Type="Self.Table_students" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Table_parents">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Table_students">
+              <PropertyRef Name="id parent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_times_Table_days">
+          <End Role="Table_days" Type="Self.Table_days" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Table_times" Type="Self.Table_times" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Table_days">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Table_times">
+              <PropertyRef Name="day id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="schoolDBModelStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Table_admin" EntityType="Self.Table_admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Table_Attendnce" EntityType="Self.Table_Attendnce" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Table_class" EntityType="Self.Table_class" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Table_days" EntityType="Self.Table_days" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Table_Modules" EntityType="Self.Table_Modules" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Table_parents" EntityType="Self.Table_parents" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Table_paymentsDetails" EntityType="Self.Table_paymentsDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Table_programme" EntityType="Self.Table_programme" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Table_students" EntityType="Self.Table_students" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Table_Teacher" EntityType="Self.Table_Teacher" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Table_times" EntityType="Self.Table_times" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Table_Attendnce_Table_students" Association="Self.FK_Table_Attendnce_Table_students">
+            <End Role="Table_students" EntitySet="Table_students" />
+            <End Role="Table_Attendnce" EntitySet="Table_Attendnce" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_class_Table_Modules" Association="Self.FK_Table_class_Table_Modules">
+            <End Role="Table_Modules" EntitySet="Table_Modules" />
+            <End Role="Table_class" EntitySet="Table_class" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_class_Table_students" Association="Self.FK_Table_class_Table_students">
+            <End Role="Table_students" EntitySet="Table_students" />
+            <End Role="Table_class" EntitySet="Table_class" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_class_Table_Teacher" Association="Self.FK_Table_class_Table_Teacher">
+            <End Role="Table_Teacher" EntitySet="Table_Teacher" />
+            <End Role="Table_class" EntitySet="Table_class" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_class_Table_times" Association="Self.FK_Table_class_Table_times">
+            <End Role="Table_times" EntitySet="Table_times" />
+            <End Role="Table_class" EntitySet="Table_class" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_Modules_Table_programme" Association="Self.FK_Table_Modules_Table_programme">
+            <End Role="Table_programme" EntitySet="Table_programme" />
+            <End Role="Table_Modules" EntitySet="Table_Modules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_paymentsDetails_Table_parents" Association="Self.FK_Table_paymentsDetails_Table_parents">
+            <End Role="Table_parents" EntitySet="Table_parents" />
+            <End Role="Table_paymentsDetails" EntitySet="Table_paymentsDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_students_Table_parents" Association="Self.FK_Table_students_Table_parents">
+            <End Role="Table_parents" EntitySet="Table_parents" />
+            <End Role="Table_students" EntitySet="Table_students" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_times_Table_days" Association="Self.FK_Table_times_Table_days">
+            <End Role="Table_days" EntitySet="Table_days" />
+            <End Role="Table_times" EntitySet="Table_times" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="schoolDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Table_Attendnce">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_students" Type="Int32" />
+          <Property Name="remark" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="date" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Table_students" Relationship="Self.FK_Table_Attendnce_Table_students" FromRole="Table_Attendnce" ToRole="Table_students" />
+        </EntityType>
+        <EntityType Name="Table_class">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_student" Type="Int32" />
+          <Property Name="id_teacher" Type="Int32" />
+          <Property Name="id_modules" Type="Int32" />
+          <Property Name="id_times" Type="Int32" />
+          <NavigationProperty Name="Table_Modules" Relationship="Self.FK_Table_class_Table_Modules" FromRole="Table_class" ToRole="Table_Modules" />
+          <NavigationProperty Name="Table_students" Relationship="Self.FK_Table_class_Table_students" FromRole="Table_class" ToRole="Table_students" />
+          <NavigationProperty Name="Table_Teacher" Relationship="Self.FK_Table_class_Table_Teacher" FromRole="Table_class" ToRole="Table_Teacher" />
+          <NavigationProperty Name="Table_times" Relationship="Self.FK_Table_class_Table_times" FromRole="Table_class" ToRole="Table_times" />
+        </EntityType>
+        <EntityType Name="Table_days">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="day" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Table_times" Relationship="Self.FK_Table_times_Table_days" FromRole="Table_days" ToRole="Table_times" />
+        </EntityType>
+        <EntityType Name="Table_Modules">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="programme_id" Type="Int32" />
+          <Property Name="modules_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Table_class" Relationship="Self.FK_Table_class_Table_Modules" FromRole="Table_Modules" ToRole="Table_class" />
+          <NavigationProperty Name="Table_programme" Relationship="Self.FK_Table_Modules_Table_programme" FromRole="Table_Modules" ToRole="Table_programme" />
+        </EntityType>
+        <EntityType Name="Table_parents">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="full_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="phone" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="job" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Table_paymentsDetails" Relationship="Self.FK_Table_paymentsDetails_Table_parents" FromRole="Table_parents" ToRole="Table_paymentsDetails" />
+          <NavigationProperty Name="Table_students" Relationship="Self.FK_Table_students_Table_parents" FromRole="Table_parents" ToRole="Table_students" />
+        </EntityType>
+        <EntityType Name="Table_paymentsDetails">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="amount" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="blance" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="recette" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="sumistre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="date" Type="DateTime" Precision="0" />
+          <Property Name="id_parents" Type="Int32" />
+          <NavigationProperty Name="Table_parents" Relationship="Self.FK_Table_paymentsDetails_Table_parents" FromRole="Table_paymentsDetails" ToRole="Table_parents" />
+        </EntityType>
+        <EntityType Name="Table_programme">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="programme_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Table_Modules" Relationship="Self.FK_Table_Modules_Table_programme" FromRole="Table_programme" ToRole="Table_Modules" />
+        </EntityType>
+        <EntityType Name="Table_students">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="full_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="age" Type="DateTime" Precision="0" />
+          <Property Name="gender" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="date_in" Type="DateTime" Precision="0" />
+          <Property Name="date_out" Type="DateTime" Precision="0" />
+          <Property Name="id_parent" Type="Int32" />
+          <NavigationProperty Name="Table_Attendnce" Relationship="Self.FK_Table_Attendnce_Table_students" FromRole="Table_students" ToRole="Table_Attendnce" />
+          <NavigationProperty Name="Table_class" Relationship="Self.FK_Table_class_Table_students" FromRole="Table_students" ToRole="Table_class" />
+          <NavigationProperty Name="Table_parents" Relationship="Self.FK_Table_students_Table_parents" FromRole="Table_students" ToRole="Table_parents" />
+        </EntityType>
+        <EntityType Name="Table_Teacher">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="full_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cin" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="phone" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Table_class" Relationship="Self.FK_Table_class_Table_Teacher" FromRole="Table_Teacher" ToRole="Table_class" />
+        </EntityType>
+        <EntityType Name="Table_times">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="day_id" Type="Int32" />
+          <Property Name="time" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Table_class" Relationship="Self.FK_Table_class_Table_times" FromRole="Table_times" ToRole="Table_class" />
+          <NavigationProperty Name="Table_days" Relationship="Self.FK_Table_times_Table_days" FromRole="Table_times" ToRole="Table_days" />
+        </EntityType>
+        <Association Name="FK_Table_Attendnce_Table_students">
+          <End Role="Table_students" Type="Self.Table_students" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Table_Attendnce" Type="Self.Table_Attendnce" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Table_students">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Table_Attendnce">
+              <PropertyRef Name="id_students" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_class_Table_Modules">
+          <End Role="Table_Modules" Type="Self.Table_Modules" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Table_class" Type="Self.Table_class" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Table_Modules">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Table_class">
+              <PropertyRef Name="id_modules" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_class_Table_students">
+          <End Role="Table_students" Type="Self.Table_students" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Table_class" Type="Self.Table_class" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Table_students">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Table_class">
+              <PropertyRef Name="id_student" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_class_Table_Teacher">
+          <End Role="Table_Teacher" Type="Self.Table_Teacher" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Table_class" Type="Self.Table_class" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Table_Teacher">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Table_class">
+              <PropertyRef Name="id_teacher" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_class_Table_times">
+          <End Role="Table_times" Type="Self.Table_times" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Table_class" Type="Self.Table_class" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Table_times">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Table_class">
+              <PropertyRef Name="id_times" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_times_Table_days">
+          <End Role="Table_days" Type="Self.Table_days" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Table_times" Type="Self.Table_times" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Table_days">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Table_times">
+              <PropertyRef Name="day_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_Modules_Table_programme">
+          <End Role="Table_programme" Type="Self.Table_programme" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Table_Modules" Type="Self.Table_Modules" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Table_programme">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Table_Modules">
+              <PropertyRef Name="programme_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_paymentsDetails_Table_parents">
+          <End Role="Table_parents" Type="Self.Table_parents" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Table_paymentsDetails" Type="Self.Table_paymentsDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Table_parents">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Table_paymentsDetails">
+              <PropertyRef Name="id_parents" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_students_Table_parents">
+          <End Role="Table_parents" Type="Self.Table_parents" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Table_students" Type="Self.Table_students" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Table_parents">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Table_students">
+              <PropertyRef Name="id_parent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="schoolDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="Table_Attendnce" EntityType="Self.Table_Attendnce" />
+          <EntitySet Name="Table_class" EntityType="Self.Table_class" />
+          <EntitySet Name="Table_days" EntityType="Self.Table_days" />
+          <EntitySet Name="Table_Modules" EntityType="Self.Table_Modules" />
+          <EntitySet Name="Table_parents" EntityType="Self.Table_parents" />
+          <EntitySet Name="Table_paymentsDetails" EntityType="Self.Table_paymentsDetails" />
+          <EntitySet Name="Table_programme" EntityType="Self.Table_programme" />
+          <EntitySet Name="Table_students" EntityType="Self.Table_students" />
+          <EntitySet Name="Table_Teacher" EntityType="Self.Table_Teacher" />
+          <EntitySet Name="Table_times" EntityType="Self.Table_times" />
+          <AssociationSet Name="FK_Table_Attendnce_Table_students" Association="Self.FK_Table_Attendnce_Table_students">
+            <End Role="Table_students" EntitySet="Table_students" />
+            <End Role="Table_Attendnce" EntitySet="Table_Attendnce" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_class_Table_Modules" Association="Self.FK_Table_class_Table_Modules">
+            <End Role="Table_Modules" EntitySet="Table_Modules" />
+            <End Role="Table_class" EntitySet="Table_class" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_class_Table_students" Association="Self.FK_Table_class_Table_students">
+            <End Role="Table_students" EntitySet="Table_students" />
+            <End Role="Table_class" EntitySet="Table_class" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_class_Table_Teacher" Association="Self.FK_Table_class_Table_Teacher">
+            <End Role="Table_Teacher" EntitySet="Table_Teacher" />
+            <End Role="Table_class" EntitySet="Table_class" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_class_Table_times" Association="Self.FK_Table_class_Table_times">
+            <End Role="Table_times" EntitySet="Table_times" />
+            <End Role="Table_class" EntitySet="Table_class" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_times_Table_days" Association="Self.FK_Table_times_Table_days">
+            <End Role="Table_days" EntitySet="Table_days" />
+            <End Role="Table_times" EntitySet="Table_times" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_Modules_Table_programme" Association="Self.FK_Table_Modules_Table_programme">
+            <End Role="Table_programme" EntitySet="Table_programme" />
+            <End Role="Table_Modules" EntitySet="Table_Modules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_paymentsDetails_Table_parents" Association="Self.FK_Table_paymentsDetails_Table_parents">
+            <End Role="Table_parents" EntitySet="Table_parents" />
+            <End Role="Table_paymentsDetails" EntitySet="Table_paymentsDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_students_Table_parents" Association="Self.FK_Table_students_Table_parents">
+            <End Role="Table_parents" EntitySet="Table_parents" />
+            <End Role="Table_students" EntitySet="Table_students" />
+          </AssociationSet>
+          <EntitySet Name="Table_admin" EntityType="schoolDBModel.Table_admin" />
+        </EntityContainer>
+        <EntityType Name="Table_admin">
+          <Key>
+            <PropertyRef Name="admin_id" />
+          </Key>
+          <Property Name="admin_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="admin_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="schoolDBModelStoreContainer" CdmEntityContainer="schoolDBEntities">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="schoolDBModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Table_Attendnce">
+            <EntityTypeMapping TypeName="schoolDBModel.Table_Attendnce">
+              <MappingFragment StoreEntitySet="Table_Attendnce">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_students" ColumnName="id students" />
+                <ScalarProperty Name="remark" ColumnName="remark" />
+                <ScalarProperty Name="date" ColumnName="date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Table_class">
+            <EntityTypeMapping TypeName="schoolDBModel.Table_class">
+              <MappingFragment StoreEntitySet="Table_class">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_student" ColumnName="id student" />
+                <ScalarProperty Name="id_teacher" ColumnName="id teacher" />
+                <ScalarProperty Name="id_modules" ColumnName="id modules" />
+                <ScalarProperty Name="id_times" ColumnName="id times" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Table_days">
+            <EntityTypeMapping TypeName="schoolDBModel.Table_days">
+              <MappingFragment StoreEntitySet="Table_days">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="day" ColumnName="day" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Table_Modules">
+            <EntityTypeMapping TypeName="schoolDBModel.Table_Modules">
+              <MappingFragment StoreEntitySet="Table_Modules">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="programme_id" ColumnName="programme id" />
+                <ScalarProperty Name="modules_name" ColumnName="modules name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Table_parents">
+            <EntityTypeMapping TypeName="schoolDBModel.Table_parents">
+              <MappingFragment StoreEntitySet="Table_parents">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="full_name" ColumnName="full name" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="job" ColumnName="job" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Table_paymentsDetails">
+            <EntityTypeMapping TypeName="schoolDBModel.Table_paymentsDetails">
+              <MappingFragment StoreEntitySet="Table_paymentsDetails">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="blance" ColumnName="blance" />
+                <ScalarProperty Name="recette" ColumnName="recette" />
+                <ScalarProperty Name="sumistre" ColumnName="sumistre" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="id_parents" ColumnName="id parents" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Table_programme">
+            <EntityTypeMapping TypeName="schoolDBModel.Table_programme">
+              <MappingFragment StoreEntitySet="Table_programme">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="programme_name" ColumnName="programme name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Table_students">
+            <EntityTypeMapping TypeName="schoolDBModel.Table_students">
+              <MappingFragment StoreEntitySet="Table_students">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="full_name" ColumnName="full name" />
+                <ScalarProperty Name="age" ColumnName="age" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="date_in" ColumnName="date in" />
+                <ScalarProperty Name="date_out" ColumnName="date out" />
+                <ScalarProperty Name="id_parent" ColumnName="id parent" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Table_Teacher">
+            <EntityTypeMapping TypeName="schoolDBModel.Table_Teacher">
+              <MappingFragment StoreEntitySet="Table_Teacher">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="full_name" ColumnName="full name" />
+                <ScalarProperty Name="cin" ColumnName="cin" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="address" ColumnName="address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Table_times">
+            <EntityTypeMapping TypeName="schoolDBModel.Table_times">
+              <MappingFragment StoreEntitySet="Table_times">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="day_id" ColumnName="day id" />
+                <ScalarProperty Name="time" ColumnName="time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Table_admin">
+            <EntityTypeMapping TypeName="schoolDBModel.Table_admin">
+              <MappingFragment StoreEntitySet="Table_admin">
+                <ScalarProperty Name="admin_name" ColumnName="admin_name" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="admin_id" ColumnName="admin id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
